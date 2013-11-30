@@ -1,0 +1,58 @@
+<h1>Artículos</h1>
+<section id='articles'>
+  <% @articles.each do |article| %>
+    <div class="row">
+      <div class="col-md-2 inline-middle">
+        <% if article.tiene_imagen? %>
+          <%= image_tag("/imagenes_articulos/#{article.id}.#{article.ext}") %>
+        <%end%>
+      </div>
+      <div class="col-md-9 inline-middle">
+        <h2><%= article.titulo %></h2>
+        <% unless article.usuario.nil? %>
+        <p>
+          <strong>By: </strong> <%= article.usuario.email %>
+        </p>
+        <%end%>
+        <p>
+          <%= truncate(article.contenido, :length => 30) %>
+        </p>
+        <%= link_to "Leer", article, class: "btn btn-info" %>
+      </div>
+    </div>
+  <%end%>
+
+</section>
+<!--
+<table>
+  <thead>
+    <tr>
+      <th>Titulo</th>
+      <th>Contenido</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.titulo %></td>
+        <td><%= article.contenido %></td>
+        <td><%= link_to 'Show', article %></td>
+        <td><%= link_to 'Edit', edit_article_path(article) %></td>
+        <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+-->
+<% if usuario_signed_in? %>
+  <%= link_to 'New Article', new_article_path, class: "btn btn-danger" %>
+<%else %>
+  <p>Necesitas <%= link_to "estar registrado", new_usuario_registration_path %>.</p>
+  <p>Si ya tienes cuenta, <%= link_to "inicia sesión", new_usuario_session_path %></p>
+<%end%>

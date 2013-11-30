@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<div class="jumbotron">
+ 	<h1><%= @article.titulo %></h1>
+ 	<% if @article.tiene_imagen? %>
+ 		<%= image_tag("/imagenes_articulos/#{@article.id}.#{@article.ext}") %>
+ 	<%end%>
+ 	<p><%= @article.contenido %></p>
+	<%= link_to 'Edit', edit_article_path(@article) %> |
+	<%= link_to 'Back', articles_path %>
+</div>
+<section id="comments">
+	<% @article.comments.each do |comment| %>
+		<div class="media">
+		  <a class="pull-left" href="#">
+		    
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading"><%= comment.title %></h4>
+		    <p>
+		    	<%= comment.comment %>
+		    </p>
+		  </div>
+		</div>
+	<%end%>
+</section>

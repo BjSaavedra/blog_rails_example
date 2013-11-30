@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BlogExample</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul class="nav nav-tabs">
+			  <li class="active"><a href="/">Inicio</a></li>
+			  <li><a href="/articles">Articulos</a></li>
+			  <% if usuario_signed_in? %>
+			  	<li>
+			  		<%= link_to "Log out", destroy_usuario_session_path, method: :delete %>
+			  	</li>
+			  <%else%>
+			  	<li>
+			  		<%= link_to "Log in", new_usuario_session_path%>
+			  	</li>
+			  <%end%>
+			  
+			</ul>
+		</nav>
+	</header>
+	<p class="notice" style="<%= "display:none;" if notice.nil? %>"><%= notice %></p>
+	<p class="alert" style="<%= "display:none;" if notice.nil? %>"><%= alert %></p>
+	<%= yield %>
+
+</body>
+</html>
